@@ -1,0 +1,44 @@
+---
+# Create directory for configurations
+- name: Create directory for configurations
+  file:
+    path: /tools/logging
+    state: directory
+
+# Create Grafana configuration file
+# - name: Create Grafana configuration file
+#   copy:
+#     src: grafana
+#     dest: /tools/logging/grafana
+#     owner: root
+#     group: root
+
+# Create Loki configuration file
+- name: Create Loki configuration file
+  copy:
+    src: loki-config.yaml
+    dest: /tools/logging/loki-config.yaml
+    owner: root
+    group: root
+
+# Create Promtail configuration file
+- name: Create Promtail configuration file
+  template:
+    src: promtail-config.yaml.j2
+    dest: /tools/logging/promtail-config.yaml
+    owner: root
+    group: root
+
+# Create docker-compose.yml file (template optional)
+- name: Create docker-compose.yml file (template)
+  template:
+    src: docker-compose.yml.j2
+    dest: /tools/logging/docker-compose.yml
+    owner: root
+    group: root
+
+- name: Start services in detached mode using docker-compose
+  community.docker.docker_compose_v2:
+    project_src: /tools/logging
+    files:
+      - docker-compose.yml

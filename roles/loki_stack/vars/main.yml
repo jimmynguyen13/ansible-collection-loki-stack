@@ -1,0 +1,12 @@
+---
+# vars file for roles/run-loki
+# Define variables used in docker-compose.yml template
+grafana_image: grafana/grafana:10.3.3
+loki_image: grafana/loki:2.9.4
+promtail_image: grafana/promtail:latest
+grafana_port: 3000
+loki_port: 3100
+grafana_config_volume: /tools/logging/grafana:/var/lib/grafana
+loki_config_volume: /tools/logging/loki-config.yaml:/etc/loki/config.yaml
+promtail_config_volume: /tools/logging/promtail-config.yaml:/etc/promtail/config.yml
+promtail_log_volume: /var/log:/var/log:ro

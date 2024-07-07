@@ -1,0 +1,10 @@
+---
+- name: Restart services
+  community.docker.docker_compose_v2:
+    project_src: /tools/logging
+    state: restarted
+# - name: restart promtail
+#   ansible.builtin.systemd:
+#     name: promtail
+#     state: restarted
+#     enabled: true

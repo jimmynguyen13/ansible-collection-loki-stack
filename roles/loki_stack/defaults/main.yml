@@ -1,0 +1,18 @@
+---
+loki_server: loki
+loki_port: 3100
+add_inventory_hosts: true
+
+# scrape host promtail config
+target_host_1: localhost
+target_hostname_1: localhost
+
+custom_scrape_configs: |
+  - job_name: docker
+      static_configs:
+        - targets:
+            - localhost
+          labels:
+            job: container
+            __path__: /var/lib/docker/containers/*/*log
+            host: localhost
